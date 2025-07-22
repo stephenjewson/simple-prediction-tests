@@ -48,8 +48,8 @@ for (ir in 1:nrepeats){																			# loop that runs everything 3 times to
 	pcp4cp=sum4cp/ntrials																			# calculate the coverage probability for calibrating prior prediction
 	rp4ml=1/pcp4ml																						# and the associated return period for maxlik prediction
 	rp4cp=1/pcp4cp																						# and the associated return period for calibration prior prediction
-	cat(ir,": ","ml results: pcp=",pcp4ml,": rp=",rp4ml,"//")	# look at the ml coverage probability (gives ~0.02 and ~50)
-	cat(ir,": ","cp results: pcp=",pcp4cp,": rp=",rp4cp,"\n")	# look at the cp coverage probability (gives ~0.011 and ~90)
+	cat(ir,": ","ml results: pcp=",pcp4ml,": rp=",rp4ml,"//")	# look at the ml coverage probability (gives ~0.021 and ~47)
+	cat(ir,": ","cp results: pcp=",pcp4cp,": rp=",rp4cp,"\n")	# look at the cp coverage probability (gives ~0.012 and ~85)
 }
 cat("Note that maxlik prediction overestimates the probability and underestimates the return period.\n")
 cat("Calibrating prior prediction also overestimates and underestimates, but is about 5x more accurate for this case.\n")
