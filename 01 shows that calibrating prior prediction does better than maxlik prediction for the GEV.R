@@ -45,7 +45,7 @@ for (ir in 1:nrepeats){																			# loop that runs everything 3 times to
 	cat(ir,": ","cp results: pcp=",pcp4cp,": rp=",rp4cp,"\n")	# look at the cp coverage probability (gives ~0.011 and ~90)
 }
 cat("Note that maxlik prediction overestimates the probability and underestimates the return period.\n")
-cat("Calibrating prior prediction also overestimates and underestimates, but is about 5x more accurate.\n")
+cat("Calibrating prior prediction also overestimates and underestimates, but is about 5x more accurate for this case.\n")
 toc()
 #
 # notes:
