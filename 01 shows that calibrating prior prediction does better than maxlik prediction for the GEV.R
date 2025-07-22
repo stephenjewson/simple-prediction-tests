@@ -55,5 +55,6 @@ toc()
 # journal paper: https://ascmo.copernicus.org/articles/11/1/2025/
 # software package: www.fitdistcp.info, and on CRAN
 # github: www.github.com/stephenjewson
+# website: www.stephenjewson.com
 #
 
