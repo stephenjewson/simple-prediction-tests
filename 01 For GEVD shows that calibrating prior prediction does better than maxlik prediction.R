@@ -26,19 +26,26 @@ p=0.99																											# set the probability that defines the quantile
 cat("For a perfectly reliable prediction, the results should give pcp=0.01 and rp=100.\n")
 cat("Running the simulations...\n")
 for (ir in 1:nrepeats){																			# loop that runs everything 3 times to check for convergence
-	count4ml=0																								# we use counting to assess the coverage probability of the predictions
-	count4cp=0																								# ideally the coverage probability should equal the nominal probability p
+	sum4ml=0																									# we use counting to assess the coverage probability of the predictions
+	sum4cp=0																									# ideally the coverage probability should equal the nominal probability p
 	for (it in 1:ntrials){																		# loop over the trials. 10k gives reasonable convergence. 50k is even better.
 		x=rgev(nsample,xi=xi0)																	# make the GEV distributed training data
 		y=rgev(1,xi=xi0)																				# make the testing data, from the same distribution
 		q=qgev_cp(x,p)																					# predict the quantiles for both methods using a function from fitdistcp that returns a list
 		qml=q$ml_quantile																				# extract the predicted quantile for maxlik prediction from the list
 		qcp=q$cp_quantile																				# extract the predicted quantile for calibrating prior prediction from the list
-		if(y>qml)count4ml=count4ml+1														# compare the testing data with the quantile prediction for maxlik prediction
-		if(y>qcp)count4cp=count4cp+1														# compare the testing data with the quantile prediction for calibrating prior prediction
+
+# simple counting method
+#		if(y>qml)sum4ml=sum4ml+1																# compare the testing data with the quantile prediction for maxlik prediction
+#		if(y>qcp)sum4cp=sum4cp+1																# compare the testing data with the quantile prediction for calibrating prior prediction
+
+# clever probability method - same result but converges faster
+		sum4ml=sum4ml+1-pgev(qml,xi=xi0)												# compare the testing data with the quantile prediction for maxlik prediction
+		sum4cp=sum4cp+1-pgev(qcp,xi=xi0)												# compare the testing data with the quantile prediction for calibrating prior prediction
+
 	}
-	pcp4ml=count4ml/ntrials																		# calculate the coverage probability for maxlik prediction
-	pcp4cp=count4cp/ntrials																		# calculate the coverage probability for calibrating prior prediction
+	pcp4ml=sum4ml/ntrials																			# calculate the coverage probability for maxlik prediction
+	pcp4cp=sum4cp/ntrials																			# calculate the coverage probability for calibrating prior prediction
 	rp4ml=1/pcp4ml																						# and the associated return period for maxlik prediction
 	rp4cp=1/pcp4cp																						# and the associated return period for calibration prior prediction
 	cat(ir,": ","ml results: pcp=",pcp4ml,": rp=",rp4ml,"//")	# look at the ml coverage probability (gives ~0.02 and ~50)
