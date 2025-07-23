@@ -39,7 +39,7 @@ for (ir in 1:nrepeats){																			# loop that runs everything 3 times to
 #		if(y>qml)sum4ml=sum4ml+1																# compare the testing data with the quantile prediction for maxlik prediction
 #		if(y>qcp)sum4cp=sum4cp+1																# compare the testing data with the quantile prediction for calibrating prior prediction
 
-# clever probability method - same result but converges faster
+# probability method - same result but converges faster
 		sum4ml=sum4ml+1-pgev(qml,xi=xi0)												# compare the testing data with the quantile prediction for maxlik prediction
 		sum4cp=sum4cp+1-pgev(qcp,xi=xi0)												# compare the testing data with the quantile prediction for calibrating prior prediction
 
@@ -56,7 +56,8 @@ cat("Calibrating prior prediction also overestimates and underestimates, but is 
 toc()
 #
 # notes:
-# -there is a much more efficient algorithm, as described in the paper, but this algorithm illustrates more clearly, and is fast enough
+# -the simple counting method (commented out) illustrates more clearly
+# -the probability method is perhaps harder to understand, but gives much better convergence (to the same results)
 # -we have a more accurate version of calibrating prior prediction in the pipeline
 #
 # journal paper: https://ascmo.copernicus.org/articles/11/1/2025/
